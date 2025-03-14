@@ -1,6 +1,7 @@
 import * as p from "jsr:@std/path@^1.0.8";
 import $ from "jsr:@david/dax@^0.42.0";
 
+/** This function is entrypoint of re-install. */
 export async function main() {
   try {
     const { project, imports } = getConfigImports();
