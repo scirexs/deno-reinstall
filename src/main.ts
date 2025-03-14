@@ -1,6 +1,20 @@
 import * as p from "jsr:@std/path";
 import $ from "jsr:@david/dax";
 
+export async function main() {
+  try {
+    const { project, imports } = getConfigImports();
+    const packages = getPackageNames(imports);
+    await reinstallPackages(project, packages);
+  } catch (e) {
+    if (e instanceof Error) {
+      console.log(`error: ${e.message}`);
+    } else {
+      throw e;
+    }
+  }
+}
+
 type ConfigImports = { project: string; imports: Record<string, string> };
 
 function read(path: string | URL): string {
@@ -56,16 +70,4 @@ async function reinstallPackages(project: string, packages: string[]) {
   await removePackages(packages);
   remove(p.join(project, "node_modules"));
   await addPackages(packages);
-}
-
-try {
-  const { project, imports } = getConfigImports();
-  const packages = getPackageNames(imports);
-  await reinstallPackages(project, packages);
-} catch (e) {
-  if (e instanceof Error) {
-    console.log(`error: ${e.message}`);
-  } else {
-    throw e;
-  }
 }
