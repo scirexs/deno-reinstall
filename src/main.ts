@@ -1,5 +1,5 @@
-import * as p from "jsr:@std/path";
-import $ from "jsr:@david/dax";
+import * as p from "jsr:@std/path@^1.0.8";
+import $ from "jsr:@david/dax@^0.42.0";
 
 export async function main() {
   try {
